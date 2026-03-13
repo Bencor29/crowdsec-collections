@@ -1,0 +1,4 @@
+filenames:
+  - /var/log/pve-firewall.log
+labels:
+  type: iptables
