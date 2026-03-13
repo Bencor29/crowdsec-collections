@@ -1,0 +1,20 @@
+# Modified version of crowdsecurity/iptables-scan-multi_ports
+type: leaky
+name: bencor29/iptables-scan-multi_ports
+description: "Detect early portscans"
+filter: "evt.Meta.log_type == 'iptables_drop' && evt.Meta.service == 'tcp'"
+groupby: evt.Meta.source_ip
+distinct: evt.Parsed.dst_port
+capacity: 5
+leakspeed: 1m
+blackhole: 1m
+labels:
+  remediation: true
+  classification:
+    - attack.T1595.001
+    - attack.T1018
+    - attack.T1046
+  behavior: "tcp:scan"
+  label: "TCP Port Scan"
+  spoofable: 3
+  confidence: 1
